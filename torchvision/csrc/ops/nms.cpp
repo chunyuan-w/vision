@@ -3,6 +3,7 @@
 #include <ATen/core/dispatch/Dispatcher.h>
 #include <torch/library.h>
 #include <torch/types.h>
+#include <iostream>
 
 namespace vision {
 namespace ops {
@@ -15,6 +16,9 @@ at::Tensor nms(
   static auto op = c10::Dispatcher::singleton()
                        .findSchemaOrThrow("torchvision::nms", "")
                        .typed<decltype(nms)>();
+  printf("in nms.cpp op.call\n");
+  std::cout << "dets:" << dets.scalar_type() << "\n";
+  std::cout << "scores:" << scores.scalar_type() << "\n";  
   return op.call(dets, scores, iou_threshold);
 }
 
