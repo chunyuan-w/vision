@@ -25,7 +25,6 @@ at::Tensor nms_autocast_cpu(
     const at::Tensor& dets,
     const at::Tensor& scores,
     double iou_threshold) {
-  printf("in nms_autocast_cpu\n");
   c10::impl::ExcludeDispatchKeyGuard no_autocastCPU(c10::DispatchKey::AutocastCPU);
   return nms(
       at::autocast::cached_cast(at::kFloat, dets, c10::DeviceType::CPU),
