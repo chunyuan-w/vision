@@ -14,7 +14,6 @@ at::Tensor nms_autocast(
     const at::Tensor& scores,
     double iou_threshold) {
   c10::impl::ExcludeDispatchKeyGuard no_autocast(c10::DispatchKey::Autocast);
-  printf("in gpu autocast\n");
   return nms(
       at::autocast::cached_cast(at::kFloat, dets),
       at::autocast::cached_cast(at::kFloat, scores),
